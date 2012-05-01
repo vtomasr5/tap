@@ -3,7 +3,6 @@ package tazam;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Insets;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -30,7 +29,7 @@ public class StartFrame extends JFrame {
     /**
      * Default width
      */
-    private static final int width = 500;
+    private static final int width = 700;
     /**
      * Default height
      */
@@ -103,8 +102,9 @@ public class StartFrame extends JFrame {
         
         setPreferredSize(new Dimension(width, height));
         setMenu();
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocation(200, 100);
+        setLocation(300, 100);
         initLookAndFeel();
         SwingUtilities.updateComponentTreeUI(this);
         pack();
@@ -362,6 +362,8 @@ public class StartFrame extends JFrame {
             f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             int ret = f.showOpenDialog(null);
             if (ret == JFileChooser.APPROVE_OPTION) {
+                textArea.append("\nIndexant (pot tardar un momentet)...");
+                textArea.repaint();
                 try {
                     File fileDir = f.getSelectedFile();
                     if (trackIndex == null) {

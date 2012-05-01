@@ -78,7 +78,8 @@ public class TrackIndex {
             info.setNumberHashPoints(numberIndexed);
             //JOptionPane.showMessageDialog(null, "Indexat " + file.getName(), "Informació", JOptionPane.PLAIN_MESSAGE);
             StartFrame.getArea().append("\n");
-            StartFrame.getArea().append("Indexat " + file.getName());
+            StartFrame.getArea().append("Indexat '" + file.getName() + "'");
+            StartFrame.getArea().repaint();
         } catch (UnsupportedAudioFileException | IOException | HeadlessException e) {
             System.out.println("Error: " + e);
         }
