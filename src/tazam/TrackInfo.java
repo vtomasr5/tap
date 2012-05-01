@@ -92,6 +92,6 @@ public class TrackInfo implements java.io.Serializable {
      */
     @Override
     public String toString() {
-        return ("Name: " + description + " / Number Hash Points: " + numberHashPoints);
+        return ("Nom: " + description + " / Nombre de punts de hash: " + numberHashPoints);
     }
 }

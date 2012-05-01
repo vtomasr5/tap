@@ -52,9 +52,9 @@ public class Probe implements Comparable<Probe>, Serializable {
         if (TIME_OFFSET <= 0 || FREQ_OFFSET <= 0) {
             TIME_OFFSET = 1;
             FREQ_OFFSET = 1;
-            JOptionPane.showMessageDialog(null, "Reached maximum selectivity of probes.", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "S'ha arribat al màxim de la selectivitat de les sondes.", "Alerta", JOptionPane.WARNING_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Increased the selectivity of probes.");
+            JOptionPane.showMessageDialog(null, "Incrementar la selectivitat de les sondes.");
         }
     }
 
@@ -67,9 +67,9 @@ public class Probe implements Comparable<Probe>, Serializable {
         if (TIME_OFFSET > 10 || FREQ_OFFSET > 5) {
             TIME_OFFSET = 10;
             FREQ_OFFSET = 5;
-            JOptionPane.showMessageDialog(null, "Reached minimum selectivity of probes.", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "S'ha arribat al mínim de la selectivitat de les sondes.", "Alerta", JOptionPane.WARNING_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Decreased the selectivity of probes.");
+            JOptionPane.showMessageDialog(null, "Decrementar la selectivitat de les sondes.");
         }
     }
 

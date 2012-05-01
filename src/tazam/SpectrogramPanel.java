@@ -1,10 +1,9 @@
 package tazam;
-import java.util.*;
-import java.io.*;
-import javax.swing.*;
-
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.util.ArrayList;
+import javax.swing.JPanel;
 
 /**
  * Displays the spectrogram that the user selects to play. It is separated from

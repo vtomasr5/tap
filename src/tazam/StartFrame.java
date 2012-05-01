@@ -2,6 +2,8 @@ package tazam;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -64,29 +66,41 @@ public class StartFrame extends JFrame {
     /**
      * A button to index a selected track
      */
-    private JButton indexTrackButton = new JButton("Index a track");
+    private JButton indexTrackButton = new JButton("Indexar pista");
     /**
      * A button to index an entire folder
      */
-    private JButton indexFolderButton = new JButton("Index a folder");
+    private JButton indexFolderButton = new JButton("Indexar carpeta");
     /**
      * The table in the frame that displays the contents of the index
      */
 //    private JTable table;
+    /**
+     * A text area to put results
+     */
+    private static JTextArea textArea = new JTextArea();
+    
+    private JScrollPane scrollPane = new JScrollPane(textArea);
 
     /**
      * Creates the first frame the user sees at startup.
      */
     public StartFrame() {
-        super("Tazam");
+        super("Tazam - UIB 2012");
         startFrame = this;
         setLayout(new BorderLayout());
+        textArea.setText("");
+        textArea.setEditable(false);
+        textArea.setMargin(new Insets(2, 2, 2, 2));
+        
         JPanel indexPanel = new JPanel();
         add(indexPanel, BorderLayout.NORTH);
         indexPanel.add(indexTrackButton, BorderLayout.WEST);
         indexTrackButton.addActionListener(new IndexTrackListener());
         indexPanel.add(indexFolderButton, BorderLayout.EAST);
         indexFolderButton.addActionListener(new IndexFolderListener());
+        add(scrollPane, BorderLayout.CENTER);
+        
         setPreferredSize(new Dimension(width, height));
         setMenu();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,7 +129,7 @@ public class StartFrame extends JFrame {
         try {
             UIManager.setLookAndFeel(lookAndFeel);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            JOptionPane.showMessageDialog(null, "Error L&F: " + e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }    
 
@@ -125,11 +139,11 @@ public class StartFrame extends JFrame {
     private void setMenu() {
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
-        JMenu file = new JMenu("File");
+        JMenu file = new JMenu("Arxiu");
         menuBar.add(file);
 
         //OPEN A CLIP/TRACK
-        open = new JMenuItem("Open Track/Clip");
+        open = new JMenuItem("Obrir Arxiu/Pista");
         file.add(open);
         open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         open.addActionListener(
@@ -148,17 +162,17 @@ public class StartFrame extends JFrame {
                 });
 
         //INDEX a track.
-        index = new JMenuItem("Index a track");
+        index = new JMenuItem("Indexar Pista");
         file.add(index);
         index.addActionListener(new IndexTrackListener());
 
         //INDEX an entire folder
-        indexFolder = new JMenuItem("Index Folder");
+        indexFolder = new JMenuItem("Indexar Carpeta");
         file.add(indexFolder);
         indexFolder.addActionListener(new IndexFolderListener());
 
         //DISPLAY THE INDEX
-        displayIndex = new JMenuItem("Show Index");
+        displayIndex = new JMenuItem("Mostrar Índex");
         file.add(displayIndex);
         displayIndex.addActionListener(
                 new ActionListener() {
@@ -169,7 +183,7 @@ public class StartFrame extends JFrame {
                     }
                 });
 
-        exit = new JMenuItem("Exit");
+        exit = new JMenuItem("Sortir");
         file.add(exit);
         exit.addActionListener(
                 new ActionListener() {
@@ -187,7 +201,7 @@ public class StartFrame extends JFrame {
      */
     public static AudioClip loadClip() throws NullPointerException {
         JFileChooser d = new JFileChooser();
-        d.setDialogTitle("Select Audio File");
+        d.setDialogTitle("Selecciona arxiu audio");
         d.setDialogType(JFileChooser.OPEN_DIALOG);
         d.setFileFilter(new javax.swing.filechooser.FileFilter() {
 
@@ -211,7 +225,7 @@ public class StartFrame extends JFrame {
 
             @Override
             public String getDescription() {
-                return "audio files in supported formats";
+                return "fitxers d'audio suportats (wav)";
             }
         });
         int ret = d.showOpenDialog(null);
@@ -227,7 +241,7 @@ public class StartFrame extends JFrame {
             } catch (IOException x) {
                 JOptionPane.showMessageDialog(null, "IOException: " + x.getMessage());
             } catch (UnsupportedAudioFileException x) {
-                JOptionPane.showMessageDialog(null, "Unsupported audio file format.");
+                JOptionPane.showMessageDialog(null, "Format de fitxer no suportat.");
             } catch (Throwable x) {
                 JOptionPane.showMessageDialog(null, "Error: " + x);
             }
@@ -240,7 +254,7 @@ public class StartFrame extends JFrame {
      */
     public void displayIndex() {
         JDialog indexFrame = new JDialog(this);
-        indexFrame.setTitle("Index contents");
+        indexFrame.setTitle("Contingut índex");
         indexFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
         indexFrame.setLocationRelativeTo(this);
         JTextArea textArea = new JTextArea();
@@ -248,7 +262,7 @@ public class StartFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(textArea);
         indexFrame.getContentPane().add(scrollPane);
         if (trackIndex == null) {
-            JOptionPane.showMessageDialog(this, "Index is empty.");
+            JOptionPane.showMessageDialog(this, "L'índex es buit");
         } else {
             Iterator<TrackID> it = trackIndex.getTrackIDIterator();
             while (it.hasNext()) {
@@ -281,6 +295,10 @@ public class StartFrame extends JFrame {
         if (f.getTrackIndex() != null) {
         }
     }
+    
+    public static JTextArea getArea() {
+        return textArea;
+    }
 
     /**
      * Listener inside the class to load a specific index.
@@ -291,7 +309,7 @@ public class StartFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             JFileChooser f = new JFileChooser();
-            f.setDialogTitle("Select a file to index");
+            f.setDialogTitle("Selecciona un arxiu per indexar");
             f.setDialogType(JFileChooser.OPEN_DIALOG);
             f.setFileFilter(new javax.swing.filechooser.FileFilter() {
 
@@ -315,7 +333,7 @@ public class StartFrame extends JFrame {
 
                 @Override
                 public String getDescription() {
-                    return "audio files in supported formats";
+                    return "fitxers d'audio suportats (wav)";
                 }
             });
             int ret = f.showOpenDialog(null);
@@ -328,7 +346,7 @@ public class StartFrame extends JFrame {
                         trackIndex.addTrack(file);
                     }
                 } catch (Exception x) {
-                    JOptionPane.showMessageDialog(null, "Error during indexing.");
+                    JOptionPane.showMessageDialog(null, "Error durant l'indexat.");
                 }
             }
         }
@@ -339,7 +357,7 @@ public class StartFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             JFileChooser f = new JFileChooser();
-            f.setDialogTitle("Select a folder to index");
+            f.setDialogTitle("Selecciona una carpeta per indexar");
             f.setDialogType(JFileChooser.OPEN_DIALOG);
             f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             int ret = f.showOpenDialog(null);
@@ -354,7 +372,7 @@ public class StartFrame extends JFrame {
                         //		fileDir.getName() + "-\nwas successfully indexed.");
                     }
                 } catch (Exception x) {
-                    JOptionPane.showMessageDialog(null, "Error during indexing.");
+                    JOptionPane.showMessageDialog(null, "Error durant l'indexat");
                 }
             }
         }

@@ -76,7 +76,9 @@ public class TrackIndex {
             int numberIndexed = cachedIndexMap.indexFile(file, id);
             TrackInfo info = trackMap.getTrackInfo(id);
             info.setNumberHashPoints(numberIndexed);
-            JOptionPane.showMessageDialog(null, "Indexed " + file.getName(), "Success", JOptionPane.PLAIN_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "Indexat " + file.getName(), "Informació", JOptionPane.PLAIN_MESSAGE);
+            StartFrame.getArea().append("\n");
+            StartFrame.getArea().append("Indexat " + file.getName());
         } catch (UnsupportedAudioFileException | IOException | HeadlessException e) {
             System.out.println("Error: " + e);
         }
@@ -94,11 +96,11 @@ public class TrackIndex {
             addTrack(f);
         }
         if (files.length == 0) {
-            JOptionPane.showMessageDialog(null, "The folder -"
-                    + folder.getName() + "-\nhas no tracks.");
+            JOptionPane.showMessageDialog(null, "La carpeta -"
+                    + folder.getName() + "-\nno te cap pista.");
         } else {
-            JOptionPane.showMessageDialog(null, "The folder -"
-                    + folder.getName() + "-\nwas successfully indexed.");
+            JOptionPane.showMessageDialog(null, "La carpeta -"
+                    + folder.getName() + "-\nha estat correctament indexada.");
         }
     }
 

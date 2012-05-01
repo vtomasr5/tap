@@ -91,7 +91,7 @@ public class Histogram {
     public void print() {
         for (Integer delta : matches.keySet()) {
             int matchCount = matches.get(delta);
-            System.out.println("Delta " + delta / Spectrogram.SAMPLE_SIZE + " Matches: " + matchCount);
+            System.out.println("Delta " + delta / Spectrogram.SAMPLE_SIZE + " Concorda: " + matchCount);
         }
     }
 
@@ -105,7 +105,7 @@ public class Histogram {
         StringBuilder s = new StringBuilder();
         for (Integer delta : matches.keySet()) {
             int matchCount = matches.get(delta);
-            s.append("Delta " + delta / Spectrogram.SAMPLE_SIZE + " / Matches: " + matchCount + "\n");
+            s.append("Delta " + delta / Spectrogram.SAMPLE_SIZE + " / Concorda: " + matchCount + "\n");
         }
         return s.toString();
 

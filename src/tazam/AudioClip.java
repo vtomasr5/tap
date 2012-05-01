@@ -86,7 +86,7 @@ public class AudioClip {
         boolean bigEndian = format.isBigEndian();
         long length = in.getFrameLength();
         if (length > Integer.MAX_VALUE) {
-            throw new IllegalArgumentException("Clip too long");
+            throw new IllegalArgumentException("Pista massa llarga");
         }
 
         // Convert the samples in the original stream to floating point.

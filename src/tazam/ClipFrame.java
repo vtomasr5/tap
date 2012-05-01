@@ -51,14 +51,14 @@ public class ClipFrame extends JFrame {
      * @param signal The signal to use.
      */
     public ClipFrame(final Signal signal, StartFrame startFrame) {
-        super("Audio Display: " + signal.getName() + "@" + signal.getFrameRate() + "Hz/" + signal.getSamplesLength() + " samples");
+        super("Audio mostrat: " + signal.getName() + "@" + signal.getFrameRate() + "Hz/" + signal.getSamplesLength() + " mostres");
 //        this.signal = signal;
         trackIndex = startFrame.getTrackIndex();//get the track index
 
         setPreferredSize(new Dimension(750, 450));
 
         JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File");
+        JMenu fileMenu = new JMenu("Arxiu");
         menuBar.add(fileMenu);
 
         play = new JMenuItem("Play");
@@ -73,14 +73,14 @@ public class ClipFrame extends JFrame {
         fileMenu.add(play);
 
         //TO match tracks
-        match = new JMenuItem("Match Track");
+        match = new JMenuItem("Pista concordant");
         match.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 try {
                     trackIndex.matchSignal(signal);
                 } catch (NullPointerException x) {
-                    JOptionPane.showMessageDialog(null, "Nothing in the index.");
+                    JOptionPane.showMessageDialog(null, "No hi ha res a l'índex.");
                 }
             }
         });
@@ -89,7 +89,7 @@ public class ClipFrame extends JFrame {
         JMenu zoomMenu = new JMenu("Zoom");
         menuBar.add(zoomMenu);
 
-        JMenuItem zin = new JMenuItem("Zoom In");
+        JMenuItem zin = new JMenuItem("Zoom +");
         zin.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
         zin.addActionListener(new ActionListener() {
 
@@ -100,7 +100,7 @@ public class ClipFrame extends JFrame {
         });
         zoomMenu.add(zin);
 
-        JMenuItem zout = new JMenuItem("Zoom Out");
+        JMenuItem zout = new JMenuItem("Zoom -");
         zout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         zout.addActionListener(new ActionListener() {
 
@@ -111,7 +111,7 @@ public class ClipFrame extends JFrame {
         });
         zoomMenu.add(zout);
 
-        JMenuItem reset = new JMenuItem("Reset");
+        JMenuItem reset = new JMenuItem("Reiniciar");
         reset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
         reset.addActionListener(new ActionListener() {
 
@@ -123,8 +123,8 @@ public class ClipFrame extends JFrame {
         zoomMenu.add(reset);
 
         //For allowing user to tweak with the settings.
-        JMenu adjustMenu = new JMenu("Specify Parameters");
-        JMenuItem inc = new JMenuItem("Increase Selectivity of Probes");
+        JMenu adjustMenu = new JMenu("Especificar Paràmetres");
+        JMenuItem inc = new JMenuItem("Aumentar la selectivitat de les sondes");
         adjustMenu.add(inc);
         inc.addActionListener(new ActionListener() {
 
@@ -134,7 +134,7 @@ public class ClipFrame extends JFrame {
             }
         });
 
-        JMenuItem dec = new JMenuItem("Decrease Selectivity of Probes");
+        JMenuItem dec = new JMenuItem("Decrementar la selectivitat de les sondes");
         adjustMenu.add(dec);
         dec.addActionListener(new ActionListener() {
 

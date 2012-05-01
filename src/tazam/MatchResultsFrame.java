@@ -27,7 +27,7 @@ public class MatchResultsFrame extends JFrame {
      * @param trackMap The mapping to use.
      */
     public MatchResultsFrame(MatchResults matchResults, TrackMap trackMap) {
-        super("Match Results");
+        super("Resultats de la concordança");
         this.matchResults = matchResults;
         this.trackMap = trackMap;
         //histograms = new ArrayList<Histogram>();
@@ -40,9 +40,9 @@ public class MatchResultsFrame extends JFrame {
 
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
-        JMenu match = new JMenu("Match");
+        JMenu match = new JMenu("Concordança");
         menuBar.add(match);
-        getMatch = new JMenuItem("Get Top Match");
+        getMatch = new JMenuItem("Veure concordança màxima");
         match.add(getMatch);
         getMatch.addActionListener(
                 new ActionListener() {
@@ -56,7 +56,7 @@ public class MatchResultsFrame extends JFrame {
         for (Iterator<TrackID> it = matchResults.getContentsIterator(); it.hasNext();) {
             TrackID id = it.next();
             Histogram h = matchResults.getHistogramAt(id);
-            StringBuilder builder = new StringBuilder("Track ID: " + id.getIntID() + " / Song name: "
+            StringBuilder builder = new StringBuilder("Track ID: " + id.getIntID() + " / Nom pista: "
                     + trackMap.getTrackInfo(id).getDescription() + "\n");
             builder.append(h.toString());
             textArea.append(builder.toString());
@@ -94,9 +94,9 @@ public class MatchResultsFrame extends JFrame {
             }
         }
         TrackInfo matchInfo = trackMap.getTrackInfo(matchID);
-        JOptionPane.showMessageDialog(null, ("The matching track is [" + matchInfo.toString()
-      + "]\nIndex offset: " + timeOffset / Spectrogram.SAMPLE_SIZE + " / Total matching hashes: " + maxNumberOfMatches
-      + "\nPercent of matches at offset: " + matchRate * 100 + "%"), "Best Match Results", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, ("La concordança de la pista es: [" + matchInfo.toString()
+      + "]\nDesplaçament índex: " + timeOffset / Spectrogram.SAMPLE_SIZE + " / Total de concordançes de hashing: " + maxNumberOfMatches
+      + "\nPercentatge de concordançes del desplaçament: " + matchRate * 100 + "%"), "Millor concordança", JOptionPane.PLAIN_MESSAGE);
 
     }
 }
