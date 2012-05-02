@@ -291,6 +291,7 @@ public class StartFrame extends JFrame {
      * Starts the main application.
      */
     public static void main(String[] args) {
+        new Microphone();
         StartFrame f = new StartFrame();
         if (f.getTrackIndex() != null) {
         }
