@@ -2,6 +2,7 @@ package tazam;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,6 +71,7 @@ public class StartFrame extends JFrame {
      * A button to index an entire folder
      */
     private JButton indexFolderButton = new JButton("Indexar carpeta");
+    private JButton btMicro = new JButton("Micro");
     /**
      * The table in the frame that displays the contents of the index
      */
@@ -78,8 +80,7 @@ public class StartFrame extends JFrame {
      * A text area to put results
      */
     private static JTextArea textArea = new JTextArea();
-    
-    private JScrollPane scrollPane = new JScrollPane(textArea);
+    private static JScrollPane scrollPane = new JScrollPane(textArea);
 
     /**
      * Creates the first frame the user sees at startup.
@@ -89,17 +90,19 @@ public class StartFrame extends JFrame {
         startFrame = this;
         setLayout(new BorderLayout());
         textArea.setText("");
-        textArea.setEditable(false);
+//        textArea.setEditable(false);
         textArea.setMargin(new Insets(2, 2, 2, 2));
-        
+
         JPanel indexPanel = new JPanel();
         add(indexPanel, BorderLayout.NORTH);
         indexPanel.add(indexTrackButton, BorderLayout.WEST);
         indexTrackButton.addActionListener(new IndexTrackListener());
         indexPanel.add(indexFolderButton, BorderLayout.EAST);
         indexFolderButton.addActionListener(new IndexFolderListener());
+        indexPanel.add(btMicro, BorderLayout.EAST);
+        btMicro.addActionListener(new MicroListener());
         add(scrollPane, BorderLayout.CENTER);
-        
+
         setPreferredSize(new Dimension(width, height));
         setMenu();
         setResizable(false);
@@ -110,11 +113,11 @@ public class StartFrame extends JFrame {
         pack();
         setVisible(true);
     }
-    
+
     private void initLookAndFeel() {
         String lookAndFeel;
         String osname = System.getProperty("os.name").toLowerCase();
-        
+
         if (osname.equals("linux")) {
             lookAndFeel = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
         } else if (osname.startsWith("windows")) {
@@ -131,7 +134,7 @@ public class StartFrame extends JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
-    }    
+    }
 
     /**
      * Sets up the main window's menu.
@@ -187,7 +190,7 @@ public class StartFrame extends JFrame {
         file.add(exit);
         exit.addActionListener(
                 new ActionListener() {
-                    
+
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         System.exit(0);
@@ -291,14 +294,18 @@ public class StartFrame extends JFrame {
      * Starts the main application.
      */
     public static void main(String[] args) {
-        new Microphone();
+
         StartFrame f = new StartFrame();
         if (f.getTrackIndex() != null) {
         }
     }
-    
+
     public static JTextArea getArea() {
         return textArea;
+    }
+
+    public static JScrollPane getScroll() {
+        return scrollPane;
     }
 
     /**
@@ -378,6 +385,32 @@ public class StartFrame extends JFrame {
                     JOptionPane.showMessageDialog(null, "Error durant l'indexat");
                 }
             }
+        }
+    }
+
+        
+    private class MicroListener implements ActionListener {
+
+//        public void JDialogAviso() {
+//            JDialog aviso = new JDialog();
+//            aviso.setTitle("Contingut índex");
+//            aviso.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+//            aviso.setLocationRelativeTo(null);
+//            JTextArea textArea = new JTextArea();
+//            textArea.setEditable(false);
+//            JScrollPane scrollPane = new JScrollPane(textArea);
+//            aviso.getContentPane().add(scrollPane);
+//
+//            aviso.pack();
+//            aviso.setVisible(true);
+//        }
+
+        public MicroListener() {
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {           
+            Microphone microphone = new Microphone();
         }
     }
 }

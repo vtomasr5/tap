@@ -1,11 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package tazam;
 
 import java.io.ByteArrayOutputStream;
@@ -19,44 +11,42 @@ public class Microphone {
     AudioFileFormat.Type aFF_T = AudioFileFormat.Type.WAVE;
     AudioFormat aF = new AudioFormat(8000.0F, 16, 1, true, false);
     TargetDataLine tD;
-    File f = new File("Grabacion.wav");
+    File f = new File("Grabacio.wav");
     OutputStream out = new ByteArrayOutputStream();
-    boolean running =true;
-    
-    public void stopRunning(){
+    boolean running = true;
+
+    private void stopRunning() {
         this.running = false;
     }
 
-    public boolean getRunning(){
+    public boolean getRunning() {
         return running;
     }
+
     public Microphone() {
         try {
             DataLine.Info dLI = new DataLine.Info(TargetDataLine.class, aF);
             tD = (TargetDataLine) AudioSystem.getLine(dLI);
-            new Microphone.CapThread().start();
-            System.out.println("Grabando durante 10s...");
+            new CapThread().start();
             Thread.sleep(10000);
             tD.close();
             stopRunning();
-           
-        } catch (Exception e) {
+
+        } catch (LineUnavailableException | InterruptedException e) {
         }
     }
 
     class CapThread extends Thread {
-     
+
+        @Override
         public void run() {
             try {
                 tD.open(aF);
                 tD.start();
-                AudioSystem.write(new AudioInputStream(tD), aFF_T, f);    
+                AudioSystem.write(new AudioInputStream(tD), aFF_T, f);
                 stopRunning();
-            } catch (Exception e) {
+            } catch (LineUnavailableException | IOException e) {
             }
         }
     }
-
-
-    
 }
