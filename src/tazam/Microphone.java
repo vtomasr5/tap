@@ -37,6 +37,7 @@ public class Microphone {
         } catch (LineUnavailableException ex) {
             Logger.getLogger(Microphone.class.getName()).log(Level.SEVERE, null, ex);
         }
+        capThread = new CapThread();
     }
 
 //    public Microphone() {
