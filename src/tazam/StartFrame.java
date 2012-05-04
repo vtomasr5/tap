@@ -2,14 +2,16 @@ package tazam;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -71,7 +73,7 @@ public class StartFrame extends JFrame {
      * A button to index an entire folder
      */
     private JButton indexFolderButton = new JButton("Indexar carpeta");
-    private JButton btMicro = new JButton("Micro");
+    private JButton btMicro = new JButton("Gravar");
     /**
      * The table in the frame that displays the contents of the index
      */
@@ -90,7 +92,7 @@ public class StartFrame extends JFrame {
         startFrame = this;
         setLayout(new BorderLayout());
         textArea.setText("");
-//        textArea.setEditable(false);
+        textArea.setEditable(false);
         textArea.setMargin(new Insets(2, 2, 2, 2));
 
         JPanel indexPanel = new JPanel();
@@ -260,10 +262,10 @@ public class StartFrame extends JFrame {
         indexFrame.setTitle("Contingut índex");
         indexFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
         indexFrame.setLocationRelativeTo(this);
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        indexFrame.getContentPane().add(scrollPane);
+        JTextArea _textArea = new JTextArea();
+        _textArea.setEditable(false);
+        JScrollPane _scrollPane = new JScrollPane(_textArea);
+        indexFrame.getContentPane().add(_scrollPane);
         if (trackIndex == null) {
             JOptionPane.showMessageDialog(this, "L'índex es buit");
         } else {
@@ -272,7 +274,7 @@ public class StartFrame extends JFrame {
                 TrackID id = it.next();
                 TrackInfo info = trackIndex.getTrackInfo(id);
                 String s = ("TrackID: " + id.getIntID() + " " + info.toString() + "\n");
-                textArea.append(s);
+                _textArea.append(s);
             }
             indexFrame.pack();
             indexFrame.setVisible(true);
@@ -387,7 +389,7 @@ public class StartFrame extends JFrame {
             }
         }
     }
-
+    
         
     private class MicroListener implements ActionListener {
 
@@ -405,12 +407,25 @@ public class StartFrame extends JFrame {
 //            aviso.setVisible(true);
 //        }
 
-        public MicroListener() {
-        }
-
         @Override
-        public void actionPerformed(ActionEvent e) {           
-            Microphone microphone = new Microphone();
+        public void actionPerformed(ActionEvent e) { 
+            Microphone mic = new Microphone();
+            switch (btMicro.getText()) {
+                case "Gravar":
+                    btMicro.setText("Aturar");
+                    try {
+                        mic.saveFileRecorded();
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException | InterruptedException ex) {
+                        Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case "Aturar":
+                    btMicro.setText("Gravar");
+                    mic.stopRunning();
+                    break;
+            }
         }
     }
 }
