@@ -19,7 +19,7 @@ public class SpectrogramPanel extends JPanel {
     /**
      * The Signal selected by the user
      */
-    private Signal signal;
+//    private Signal signal;
     /**
      * Original set of complete samples of audio
      */
@@ -57,7 +57,7 @@ public class SpectrogramPanel extends JPanel {
      */
     public SpectrogramPanel(Signal signal) {
         super();
-        this.signal = signal;
+//        this.signal = signal;
         name = signal.getName();
         frameRate = signal.getFrameRate();
 
@@ -77,6 +77,7 @@ public class SpectrogramPanel extends JPanel {
      *
      * @param g
      */
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         double totalWidth = samples.length * hscale;

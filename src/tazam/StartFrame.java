@@ -414,10 +414,12 @@ public class StartFrame extends JFrame {
                 case "Gravar":
                     btMicro.setText("Aturar");
                     try {
-                        mic.saveFileRecorded();
+                        if (!mic.saveFileRecorded()) {
+                            btMicro.setText("Gravar");        
+                        }
                     } catch (FileNotFoundException ex) {
                         Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException | InterruptedException ex) {
+                    } catch (IOException ex) {
                         Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break;

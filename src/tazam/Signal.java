@@ -1,4 +1,9 @@
 package tazam;
+
+import java.io.IOException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 /**
  * Wrapper class that contains the audio data stream of the audio clip selected.
  *
@@ -80,11 +85,12 @@ public class Signal implements Runnable {
     /**
      * Plays the audio file.
      */
+    @Override
     public void run() {
         try {
             audioClip.play();
             Thread.sleep(1000);
-        } catch (Exception e) {
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException | InterruptedException e) {
         }
     }
 

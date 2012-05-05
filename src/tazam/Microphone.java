@@ -1,10 +1,6 @@
 package tazam;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Date;
-import java.util.Timer;
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.*;
@@ -16,7 +12,7 @@ public class Microphone {
     AudioFormat aF = new AudioFormat(8000.0F, 16, 1, true, false);
     TargetDataLine tD;
     File f;// = new File("Grabacio.wav");
-//    OutputStream out = new ByteArrayOutputStream();
+    OutputStream out = new ByteArrayOutputStream();
     boolean running = true;
     CapThread capThread;// = new CapThread();
 
@@ -52,6 +48,7 @@ public class Microphone {
 //            stopRunning();
 //
 //        } catch (LineUnavailableException | InterruptedException e) {
+//            Logger.getLogger(Microphone.class.getName()).log(Level.SEVERE, null, e);
 //        }
 //    }
     
@@ -72,7 +69,7 @@ public class Microphone {
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    public void saveFileRecorded() throws FileNotFoundException, IOException, InterruptedException {
+    public boolean saveFileRecorded() throws FileNotFoundException, IOException {
         JFileChooser fc = new JFileChooser();
         int res = fc.showSaveDialog(null);
         if (res == JFileChooser.APPROVE_OPTION) {
@@ -87,6 +84,9 @@ public class Microphone {
                 StartFrame.getArea().append("\nGravant des del micròfon...");
                 startRecording();
             }
+            return true; // accept (Ok)
+        } else {
+            return false; // cancel
         }
     }
 
@@ -94,14 +94,17 @@ public class Microphone {
         @Override
         public void run() {
             try {
+                tD.open(aF);
+                tD.start();                    
                 while (getRunning()) {
-                    tD.open(aF);
-                    tD.start();
+                    //tD.open(aF);
+                    //tD.start();
                     AudioSystem.write(new AudioInputStream(tD), aFF_T, f);
-//                    Thread.sleep(1);
+//                    Thread.sleep(10000); // max 10 seg.
 //                    stopRunning();
                 }
             } catch (LineUnavailableException | IOException e) {
+                Logger.getLogger(Microphone.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }

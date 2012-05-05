@@ -64,9 +64,10 @@ public class ClipFrame extends JFrame {
         play = new JMenuItem("Play");
         play.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Thread t = new Thread(signal);
-//                threadList.add(t);
+                //                threadList.add(t);
                 t.start();
             }
         });
@@ -76,6 +77,7 @@ public class ClipFrame extends JFrame {
         match = new JMenuItem("Pista concordant");
         match.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     trackIndex.matchSignal(signal);
@@ -93,6 +95,7 @@ public class ClipFrame extends JFrame {
         zin.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
         zin.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 waveformPanel.zoomIn();
                 spectrogramPanel.zoomIn();
@@ -104,6 +107,7 @@ public class ClipFrame extends JFrame {
         zout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         zout.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 waveformPanel.zoomOut();
                 spectrogramPanel.zoomOut();
@@ -115,6 +119,7 @@ public class ClipFrame extends JFrame {
         reset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
         reset.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 waveformPanel.resetZoom();
                 spectrogramPanel.resetZoom();
@@ -124,10 +129,11 @@ public class ClipFrame extends JFrame {
 
         //For allowing user to tweak with the settings.
         JMenu adjustMenu = new JMenu("Especificar Paràmetres");
-        JMenuItem inc = new JMenuItem("Aumentar la selectivitat de les sondes");
+        JMenuItem inc = new JMenuItem("Augmentar la selectivitat de les sondes");
         adjustMenu.add(inc);
         inc.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Probe.increaseSelectivity();
 
@@ -138,6 +144,7 @@ public class ClipFrame extends JFrame {
         adjustMenu.add(dec);
         dec.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Probe.decreaseSelectivity();
 
