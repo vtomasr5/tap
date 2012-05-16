@@ -105,7 +105,7 @@ public class WaveformPanel extends JPanel {
      * Zooms out of the waveform.
      */
     public void zoomOut() {
-        hscale *= 1.5;
+        hscale /= 1.5;
         //WIDTH /= 1.5;
         revalidate();
         repaint();

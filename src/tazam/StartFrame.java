@@ -73,6 +73,7 @@ public class StartFrame extends JFrame {
      * A button to index an entire folder
      */
     private JButton indexFolderButton = new JButton("Indexar carpeta");
+    
     private JButton btMicro = new JButton("Gravar");
     /**
      * The table in the frame that displays the contents of the index
@@ -82,6 +83,7 @@ public class StartFrame extends JFrame {
      * A text area to put results
      */
     private static JTextArea textArea = new JTextArea();
+    
     private static JScrollPane scrollPane = new JScrollPane(textArea);
 
     /**
