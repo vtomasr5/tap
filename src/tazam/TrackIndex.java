@@ -79,6 +79,7 @@ public class TrackIndex {
             //JOptionPane.showMessageDialog(null, "Indexat " + file.getName(), "Informació", JOptionPane.PLAIN_MESSAGE);
             StartFrame.getArea().append("\n");
             StartFrame.getArea().append("Indexat '" + file.getName() + "'");
+            StartFrame.getArea().append("\n");
             StartFrame.getArea().repaint();
         } catch (UnsupportedAudioFileException | IOException | HeadlessException e) {
             System.out.println("Error: " + e);
@@ -113,9 +114,58 @@ public class TrackIndex {
      */
     public void matchSignal(Signal s) {
         MatchResults results = cachedIndexMap.query(s);
-        MatchResultsFrame matchFrame = new MatchResultsFrame(results, trackMap);
+        
+          ShowMatches(results); // muestra resultados en textarea
+          getMatch(results); // muestra resultados en textarea
+        
     }
-
+    public void matchSignalJdialog(Signal s) {
+        MatchResults results = cachedIndexMap.query(s);
+        
+        MatchResultsFrame matchFrame = new MatchResultsFrame(results, trackMap); // muestra resultados en jdialog
+    }
+    public void ShowMatches(MatchResults results){
+        
+         //Displays the contents of the match results
+        for (Iterator<TrackID> it = results.getContentsIterator(); it.hasNext();) {
+            TrackID id = it.next();
+            Histogram h = results.getHistogramAt(id);
+            StringBuilder builder = new StringBuilder("Track ID: " + id.getIntID() + " / Nom pista: "
+                    + trackMap.getTrackInfo(id).getDescription() + "\n");
+            builder.append(h.toString());
+           StartFrame.getArea().append(builder.toString());
+             StartFrame.getArea().append("\n");
+        }
+          StartFrame.getArea().repaint();
+    }
+ public void getMatch(MatchResults results ) {
+        int maxNumberOfMatches = Integer.MIN_VALUE;
+        double matchRate = 0;//this is the one we use - the percentage of matches at the max match must be the highest percentage
+        TrackID matchID = null;
+        int timeOffset = 0;
+        for (Iterator<TrackID> it = results.getContentsIterator(); it.hasNext();) {
+            TrackID id = it.next();
+            Histogram h = results.getHistogramAt(id);
+            MaxMatch thisMatch = h.getMaxMatch();
+            int totalMatches = h.getTotalMatches();
+            int thisNumberOfMatches = thisMatch.numberOfMatches;//at a particular delta
+			/*
+             * if(thisNumberOfMatches > maxNumberOfMatches){ maxNumberOfMatches
+             * = thisNumberOfMatches; matchID = id; timeOffset =
+             * thisMatch.delta; }
+             */
+            double thisMatchRate = (double) ((double) thisNumberOfMatches / (double) totalMatches);
+            if (thisMatchRate > matchRate) {
+                maxNumberOfMatches = thisNumberOfMatches;
+                matchID = id;
+                timeOffset = thisMatch.delta;
+                matchRate = thisMatchRate;
+            }
+        }
+        TrackInfo matchInfo = trackMap.getTrackInfo(matchID);
+         StartFrame.getArea().append("La concordança de la pista es: [" + matchInfo.toString()+ "]\nDesplaçament índex: " + timeOffset / Spectrogram.SAMPLE_SIZE + " / Total de concordançes de hashing: " + maxNumberOfMatches + "\nPercentatge de concordançes del desplaçament: " + matchRate * 100 + "%");
+  StartFrame.getArea().repaint();
+    }
     /**
      * Gets the trackInfo for the given track ID.
      *
