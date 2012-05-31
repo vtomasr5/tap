@@ -56,6 +56,7 @@ public class ClipFrame extends JFrame {
         trackIndex = startFrame.getTrackIndex();//get the track index
 
         setPreferredSize(new Dimension(750, 450));
+        setLocation(300, 125);
 
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("Arxiu");
@@ -67,12 +68,13 @@ public class ClipFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Thread t = new Thread(signal);
-                //                threadList.add(t);
+//                threadList.add(t);
                 t.start();
             }
         });
         fileMenu.add(play);
-        trackIndex.matchSignal(signal); // mostramos resultados por pantalla
+        //trackIndex.matchSignal(signal); // mostramos resultados por pantalla. NO FUNCIONA!
+        
         //TO match tracks
         match = new JMenuItem("Pista concordant");
         match.addActionListener(new ActionListener() {
@@ -80,7 +82,7 @@ public class ClipFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    trackIndex.matchSignalJdialog(signal);
+                    trackIndex.matchSignalDialog(signal);
                 } catch (NullPointerException x) {
                     JOptionPane.showMessageDialog(null, "No hi ha res a l'índex.");
                 }

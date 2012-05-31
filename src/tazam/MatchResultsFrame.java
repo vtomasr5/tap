@@ -47,6 +47,7 @@ public class MatchResultsFrame extends JFrame {
         getMatch.addActionListener(
                 new ActionListener() {
 
+                    @Override
                     public void actionPerformed(ActionEvent e) {
                         getMatch();
                     }

@@ -8,3 +8,4 @@
 *.jar
 *.bin
 *.wav
+/dist/

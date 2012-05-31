@@ -6,14 +6,25 @@ import java.io.IOException;
 import javax.sound.sampled.*;
 import javax.swing.JFileChooser;
 
+/**
+ *  Contains functionality for record audio from Microphone. The audio recorded
+ *  it can be saved into a file with a file-save dialog.
+ *
+ */
 public class Microphone {
     
     private boolean running;
 //    private ByteArrayOutputStream out;
     private File f;
     
+    /**
+     * Constructor of this class
+     */
     public Microphone() {}
     
+    /**
+     * Capture audio with a simple audio format (WAVE).
+     */
     private void captureAudio() {
         try {
 //            final AudioFormat format = getFormat();
@@ -66,10 +77,19 @@ public class Microphone {
 //        AudioFormat aF = new AudioFormat(8000.0F, 16, 1, true, false); // this works
     }
     
+    /**
+     * Stops loop thread from capturing audio.
+     */
     public void stopRunning() {
         running = false;
     }
     
+    /**
+     * Prompts a save dialog for save your audio recorded from microphone.
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public boolean saveFileRecorded() throws FileNotFoundException, IOException {
         JFileChooser fc = new JFileChooser();
         int res = fc.showSaveDialog(null);

@@ -165,7 +165,6 @@ public class StartFrame extends JFrame {
                             AudioClip clip = StartFrame.loadClip();
                             Signal signal = new Signal(clip, name);
                             ClipFrame clipFrame = new ClipFrame(signal, startFrame);
-                            
                         } catch (Exception x) {
                             //do nothing
                         }
@@ -302,10 +301,8 @@ public class StartFrame extends JFrame {
      * Starts the main application.
      */
     public static void main(String[] args) {
-
         StartFrame f = new StartFrame();
-        if (f.getTrackIndex() != null) {
-        }
+        if (f.getTrackIndex() != null) {}
     }
 
     public static JTextArea getArea() {
