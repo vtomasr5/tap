@@ -118,6 +118,9 @@ public class StartFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Allow diferents themes depend of each operating system.
+     */
     private void initLookAndFeel() {
         String lookAndFeel;
         String osname = System.getProperty("os.name").toLowerCase();
@@ -395,41 +398,27 @@ public class StartFrame extends JFrame {
         
     private class MicroListener implements ActionListener {
 
-//        public void JDialogAviso() {
-//            JDialog aviso = new JDialog();
-//            aviso.setTitle("Contingut índex");
-//            aviso.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-//            aviso.setLocationRelativeTo(null);
-//            JTextArea textArea = new JTextArea();
-//            textArea.setEditable(false);
-//            JScrollPane scrollPane = new JScrollPane(textArea);
-//            aviso.getContentPane().add(scrollPane);
-//
-//            aviso.pack();
-//            aviso.setVisible(true);
-//        }
-
         @Override
-        public void actionPerformed(ActionEvent e) { 
+        public void actionPerformed(ActionEvent e) {
             Microphone mic = new Microphone();
-            switch (btMicro.getText()) {
-                case "Gravar":
-                    btMicro.setText("Aturar");
-                    try {
-                        if (!mic.saveFileRecorded()) {
-                            btMicro.setText("Gravar");        
+                switch (btMicro.getText()) {
+                    case "Gravar":
+                        btMicro.setText("Aturar");
+                        try {
+                            if (!mic.saveFileRecorded()) {
+                                btMicro.setText("Gravar");        
+                            }
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IOException ex) {
-                        Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    break;
-                case "Aturar":
-                    btMicro.setText("Gravar");
-                    mic.stopRunning();
-                    break;
-            }
+                        break;
+                    case "Aturar":
+                        btMicro.setText("Gravar");
+                        mic.stopRunning();
+                        StartFrame.getArea().append("\nGravació finalitzada!");
+                }
         }
     }
 }

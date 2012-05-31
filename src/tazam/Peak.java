@@ -1,4 +1,5 @@
 package tazam;
+
 /**
  * Represents a (time, frequency) point in the spectrogram that is a kind of
  * local maximum in the sense that there is higher power at his location than at
