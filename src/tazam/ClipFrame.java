@@ -72,7 +72,7 @@ public class ClipFrame extends JFrame {
             }
         });
         fileMenu.add(play);
-
+        trackIndex.matchSignal(signal); // mostramos resultados por pantalla
         //TO match tracks
         match = new JMenuItem("Pista concordant");
         match.addActionListener(new ActionListener() {
@@ -80,7 +80,7 @@ public class ClipFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    trackIndex.matchSignal(signal);
+                    trackIndex.matchSignalJdialog(signal);
                 } catch (NullPointerException x) {
                     JOptionPane.showMessageDialog(null, "No hi ha res a l'índex.");
                 }

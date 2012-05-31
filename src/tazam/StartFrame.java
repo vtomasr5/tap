@@ -165,6 +165,7 @@ public class StartFrame extends JFrame {
                             AudioClip clip = StartFrame.loadClip();
                             Signal signal = new Signal(clip, name);
                             ClipFrame clipFrame = new ClipFrame(signal, startFrame);
+                            
                         } catch (Exception x) {
                             //do nothing
                         }
