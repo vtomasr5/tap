@@ -1,5 +1,5 @@
 package tazam;
-import java.util.*;
+import java.util.HashMap;
 
 /**
  * This class represents a map of the number of probes that matched mapped to
