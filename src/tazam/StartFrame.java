@@ -375,7 +375,7 @@ public class StartFrame extends JFrame {
             f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             int ret = f.showOpenDialog(null);
             if (ret == JFileChooser.APPROVE_OPTION) {
-                textArea.append("\nIndexant (pot tardar un momentet)...");
+                textArea.append("\nIndexant (pot tardar uns quants segons)...");
                 textArea.repaint();
                 try {
                     File fileDir = f.getSelectedFile();
@@ -398,25 +398,7 @@ public class StartFrame extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Microphone mic = new Microphone();
-                switch (btMicro.getText()) {
-                    case "Gravar":
-                        btMicro.setText("Aturar");
-                        try {
-                            if (!mic.saveFileRecorded()) {
-                                btMicro.setText("Gravar");        
-                            }
-                        } catch (FileNotFoundException ex) {
-                            Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IOException ex) {
-                            Logger.getLogger(StartFrame.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        break;
-                    case "Aturar":
-                        btMicro.setText("Gravar");
-                        mic.stopRunning();
-                        StartFrame.getArea().append("\nGravació finalitzada!");
-                }
+            Micro mic = new Micro();
         }
     }
 }
