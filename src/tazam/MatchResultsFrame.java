@@ -97,7 +97,7 @@ public class MatchResultsFrame extends JFrame {
         TrackInfo matchInfo = trackMap.getTrackInfo(matchID);
         JOptionPane.showMessageDialog(null, ("La concordança de la pista es: [" + matchInfo.toString()
       + "]\nDesplaçament índex: " + timeOffset / Spectrogram.SAMPLE_SIZE + " / Total de concordançes de hashing: " + maxNumberOfMatches
-      + "\nPercentatge de concordançes del desplaçament: " + matchRate * 100 + "%"), "Millor concordança", JOptionPane.PLAIN_MESSAGE);
+      + "\nPercentatge de concordançes del desplaçament: " + matchRate * 100 + " %"), "Millor concordança", JOptionPane.PLAIN_MESSAGE);
 
     }
 }

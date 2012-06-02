@@ -52,7 +52,7 @@ public class Probe implements Comparable<Probe>, Serializable {
         if (TIME_OFFSET <= 0 || FREQ_OFFSET <= 0) {
             TIME_OFFSET = 1;
             FREQ_OFFSET = 1;
-            JOptionPane.showMessageDialog(null, "S'ha arribat al màxim de la selectivitat de les sondes.", "Alerta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "S'ha arribat al màxim de la selectivitat de les sondes.", "Informació", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Incrementada la selectivitat de les sondes.");
         }
@@ -67,7 +67,7 @@ public class Probe implements Comparable<Probe>, Serializable {
         if (TIME_OFFSET > 10 || FREQ_OFFSET > 5) {
             TIME_OFFSET = 10;
             FREQ_OFFSET = 5;
-            JOptionPane.showMessageDialog(null, "S'ha arribat al mínim de la selectivitat de les sondes.", "Alerta", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "S'ha arribat al mínim de la selectivitat de les sondes.", "Informació", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Decrementada la selectivitat de les sondes.");
         }
@@ -76,6 +76,7 @@ public class Probe implements Comparable<Probe>, Serializable {
     /**
      * Checks for equality of two probes
      */
+    @Override
     public boolean equals(Object otherObject) {
         if (otherObject == null) {
             return false;
@@ -127,6 +128,7 @@ public class Probe implements Comparable<Probe>, Serializable {
      * @param o The object to be compared
      * @return 0 if equal, -1 if this < o, 1 if this > 0.
      */
+    @Override
     public int compareTo(Probe o) {
         if (this.dt > o.dt) {
             return 1;
@@ -154,6 +156,7 @@ public class Probe implements Comparable<Probe>, Serializable {
      * longer need to know the exact values of the frequencies or the changes in
      * time. We match probes by simply looking at their hash values.
      */
+    @Override
     public int hashCode() {
         int factor1 = 13;
         int factor2 = 17;
@@ -169,6 +172,7 @@ public class Probe implements Comparable<Probe>, Serializable {
     /**
      * Get a string representation of this object.
      */
+    @Override
     public String toString() {
         return (dt + " " + firstFrequency + " " + secondFrequency);
     }

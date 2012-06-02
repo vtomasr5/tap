@@ -1,5 +1,8 @@
 package tazam;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * An aggregation of all the match statistics, mapping trackID's to their

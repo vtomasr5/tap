@@ -7,11 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -243,7 +240,7 @@ public class StartFrame extends JFrame {
             try {
                 File f = d.getSelectedFile();
                 name = f.getName();//get the name of the selection
-                AudioClip clip; // CANVIAT
+                AudioClip clip;
                 try (AudioInputStream ain = AudioSystem.getAudioInputStream(f)) {
                     clip = AudioClip.fromStream(ain, f.getName());
                 }
@@ -264,7 +261,7 @@ public class StartFrame extends JFrame {
      */
     public void displayIndex() {
         JDialog indexFrame = new JDialog(this);
-        indexFrame.setTitle("Contingut índex");
+        indexFrame.setTitle("Contingut de l'índex");
         indexFrame.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
         indexFrame.setLocationRelativeTo(this);
         JTextArea _textArea = new JTextArea();
@@ -272,7 +269,7 @@ public class StartFrame extends JFrame {
         JScrollPane _scrollPane = new JScrollPane(_textArea);
         indexFrame.getContentPane().add(_scrollPane);
         if (trackIndex == null) {
-            JOptionPane.showMessageDialog(this, "L'índex es buit");
+            JOptionPane.showMessageDialog(this, "L'índex està buit");
         } else {
             Iterator<TrackID> it = trackIndex.getTrackIDIterator();
             while (it.hasNext()) {
